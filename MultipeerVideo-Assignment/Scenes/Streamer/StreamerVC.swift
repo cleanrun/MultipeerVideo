@@ -107,17 +107,17 @@ final class StreamerVC: UIViewController {
             return
         }
         
-        movieOutput = AVCaptureMovieFileOutput()
-        //videoDataOutput = AVCaptureVideoDataOutput()
+        //movieOutput = AVCaptureMovieFileOutput()
+        videoDataOutput = AVCaptureVideoDataOutput()
         
-        if captureSession.canAddOutput(movieOutput) {
-            captureSession.addOutput(movieOutput)
-            movieFileOutputConnection = movieOutput.connection(with: .video)
-        } else {
-            return
-        }
+//        if captureSession.canAddOutput(movieOutput) {
+//            captureSession.addOutput(movieOutput)
+//            movieFileOutputConnection = movieOutput.connection(with: .video)
+//        } else {
+//            return
+//        }
         
-        //setupDataOutput()
+        setupDataOutput()
         
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.videoGravity = .resizeAspectFill
@@ -179,33 +179,36 @@ extension StreamerVC: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput,
                        didOutput sampleBuffer: CMSampleBuffer,
                        from connection: AVCaptureConnection) {
-        let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-        
-        if let imageBuffer {
-            CVPixelBufferLockBaseAddress(imageBuffer, [])
-            let baseAddress = CVPixelBufferGetBaseAddress(imageBuffer)
-            let bytesPerRow: size_t? = CVPixelBufferGetBytesPerRow(imageBuffer)
-            let width: size_t? = CVPixelBufferGetWidth(imageBuffer)
-            let height: size_t? = CVPixelBufferGetHeight(imageBuffer)
+        DispatchQueue.global(qos: .utility).async { [unowned self] in
+            let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
             
-            let colorSpace = CGColorSpaceCreateDeviceRGB()
-            let newContext = CGContext(data: baseAddress,
-                                       width: width ?? 0,
-                                       height: height ?? 0,
-                                       bitsPerComponent: 8,
-                                       bytesPerRow: bytesPerRow ?? 0,
-                                       space: colorSpace,
-                                       bitmapInfo: CGBitmapInfo.byteOrder32Little.rawValue | CGImageAlphaInfo.premultipliedFirst.rawValue)
-            
-            if let newImage = newContext?.makeImage() {
-                let image = UIImage(cgImage: newImage,
-                                    scale: 1,
-                                    orientation: .up)
+            if let imageBuffer {
+                CVPixelBufferLockBaseAddress(imageBuffer, [])
+                let baseAddress = CVPixelBufferGetBaseAddress(imageBuffer)
+                let bytesPerRow: size_t? = CVPixelBufferGetBytesPerRow(imageBuffer)
+                let width: size_t? = CVPixelBufferGetWidth(imageBuffer)
+                let height: size_t? = CVPixelBufferGetHeight(imageBuffer)
                 
-                CVPixelBufferUnlockBaseAddress(imageBuffer, [])
+                let colorSpace = CGColorSpaceCreateDeviceRGB()
+                let newContext = CGContext(data: baseAddress,
+                                           width: width ?? 0,
+                                           height: height ?? 0,
+                                           bitsPerComponent: 8,
+                                           bytesPerRow: bytesPerRow ?? 0,
+                                           space: colorSpace,
+                                           bitmapInfo: CGBitmapInfo.byteOrder32Little.rawValue | CGImageAlphaInfo.premultipliedFirst.rawValue)
                 
-                if let data = image.jpegData(compressionQuality: 0.7) {
-                    viewModel.sendVideoStreamImage(using: data)
+                if let newImage = newContext?.makeImage() {
+                    let image = UIImage(cgImage: newImage,
+                                        scale: 1,
+                                        orientation: .up)
+                    
+                    CVPixelBufferUnlockBaseAddress(imageBuffer, [])
+                    
+                    if let data = image.jpegData(compressionQuality: 0.5) {
+                        //self.viewModel.sendVideoStreamImage(using: data)
+                        self.viewModel.writeViewFinderStream(using: data)
+                    }
                 }
             }
         }

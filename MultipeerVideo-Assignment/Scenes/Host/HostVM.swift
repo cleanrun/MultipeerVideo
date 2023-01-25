@@ -22,6 +22,7 @@ final class HostVM: NSObject, ObservableObject {
     private let peerBrowser: MCNearbyServiceBrowser
     private let peerSession: MCSession
     private let peerBrowserVc: MCBrowserViewController
+    
     private weak var viewController: HostVC?
     
     let fileUrl = FileManager.default.urls(for: .documentDirectory,
@@ -60,8 +61,8 @@ final class HostVM: NSObject, ObservableObject {
             }
             
             try peerSession.send(recordingState.rawValue.data(using: .utf8)!,
-                             toPeers: connectedPeers,
-                             with: .reliable)
+                                 toPeers: connectedPeers,
+                                 with: .reliable)
         } catch {
             print(error.localizedDescription)
             recordingState = .notRecording
@@ -107,30 +108,39 @@ final class HostVM: NSObject, ObservableObject {
             }
         }
     }
+    
+    private func setPreviewVideo(from stream: InputStream) {
+        DispatchQueue.global(qos: .userInteractive).async { [unowned self] in
+            var buffer = [UInt8](repeating: 0, count: 1024)
+            let numberBytes = stream.read(&buffer, maxLength: 1024)
+            let data = Data(referencing: NSData(bytes: &buffer, length: numberBytes))
+            if let imageData = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self.viewController?
+                        .previewCameraView.layer.contents = imageData.cgImage
+                }
+            }
+        }
+    }
 }
 
 extension HostVM: MCSessionDelegate {
     func session(_ session: MCSession,
                  peer peerID: MCPeerID,
                  didChange state: MCSessionState) {
-        print("State \(state.rawValue)")
         connectedPeers = session.connectedPeers
     }
     
     func session(_ session: MCSession,
                  didReceive data: Data,
                  fromPeer peerID: MCPeerID) {
-        if let imageData = UIImage(data: data) {
-            // FIXME: Implement view finder preview handler here
-        } else {
-            try? FileManager.default.removeItem(at: fileUrl)
-            do {
-                try data.write(to: fileUrl)
-                showVideoPlayer(from: fileUrl)
-                changeRecordingState()
-            } catch {
-                print(error.localizedDescription)
-            }
+        try? FileManager.default.removeItem(at: fileUrl)
+        do {
+            try data.write(to: fileUrl)
+            showVideoPlayer(from: fileUrl)
+            changeRecordingState()
+        } catch {
+            print(error.localizedDescription)
         }
     }
     
@@ -138,7 +148,9 @@ extension HostVM: MCSessionDelegate {
                  didReceive stream: InputStream,
                  withName streamName: String,
                  fromPeer peerID: MCPeerID) {
-        
+        stream.delegate = self
+        stream.schedule(in: RunLoop.main, forMode: .default)
+        stream.open()
     }
     
     func session(_ session: MCSession,
@@ -179,5 +191,18 @@ extension HostVM: MCBrowserViewControllerDelegate {
     
     func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
         browserViewController.dismiss(animated: true)
+    }
+}
+
+extension HostVM: StreamDelegate {
+    func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
+        switch eventCode {
+        case .hasBytesAvailable:
+            setPreviewVideo(from: aStream as! InputStream)
+        case .hasSpaceAvailable:
+            break
+        default:
+            break
+        }
     }
 }

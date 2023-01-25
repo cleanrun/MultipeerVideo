@@ -13,7 +13,7 @@ final class HostVC: UIViewController {
     @IBOutlet private weak var connectButton: UIButton!
     @IBOutlet private weak var connectionStatusLabel: UILabel!
     @IBOutlet private weak var seeVideoButton: UIButton!
-    @IBOutlet private weak var previewCameraView: UIView!
+    @IBOutlet weak var previewCameraView: UIView!
     @IBOutlet private weak var recordButton: UIButton!
     
     private var viewModel: HostVM!

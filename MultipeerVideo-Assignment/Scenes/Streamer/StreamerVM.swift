@@ -9,14 +9,20 @@ import MultipeerConnectivity
 import UIKit
 import AVKit
 import CoreMotion
+import Combine
 
 final class StreamerVM: NSObject, ObservableObject {
     private let motionManager: CMMotionManager
     private let motionQueue: OperationQueue
+    
     private let serviceType = "video-peer"
     private let peerId = MCPeerID(displayName: UIDevice.current.name)
     private let peerAdvertiser: MCNearbyServiceAdvertiser
     private let peerSession: MCSession
+    
+    private var viewFinderStream: OutputStream?
+    private var viewFinderStreamError: Error?
+    
     private weak var viewController: StreamerVC?
     
     let fileUrl = FileManager.default.urls(for: .documentDirectory,
@@ -26,6 +32,8 @@ final class StreamerVM: NSObject, ObservableObject {
     @Published private(set) var connectedPeer: MCPeerID? = nil
     @Published private(set) var recordingState: RecordingState = .notRecording
     @Published private(set) var videoOrientation: AVCaptureVideoOrientation = .portrait
+    
+    private var disposables = Set<AnyCancellable>()
     
     init(viewController: StreamerVC) {
         motionManager = CMMotionManager()
@@ -130,6 +138,33 @@ final class StreamerVM: NSObject, ObservableObject {
         }
     }
     
+    private func startViewFinderStream(to peerID: MCPeerID) {
+        do {
+            viewFinderStream = try peerSession.startStream(withName: "viewfinder-stream",
+                                                       toPeer: peerID)
+            viewFinderStream?.delegate = self
+            viewFinderStream?.schedule(in: RunLoop.main, forMode: .default)
+            viewFinderStream?.open()
+        } catch {
+            print("Start stream error: \(error.localizedDescription)")
+            viewFinderStreamError = error
+        }
+    }
+    
+    private func stopViewFinderStream() {
+        if let viewFinderStream {
+            viewFinderStream.close()
+        }
+        viewFinderStream = nil
+    }
+    
+    func writeViewFinderStream(using data: Data) {
+        let nsdata = NSData(data: data)
+        let bytesWritten = data.withUnsafeBytes({
+            viewFinderStream?
+                .write($0.bindMemory(to: UInt8.self).baseAddress!, maxLength: data.count)
+        })
+    }
 }
 
 extension StreamerVM: MCSessionDelegate {
@@ -137,6 +172,12 @@ extension StreamerVM: MCSessionDelegate {
                  peer peerID: MCPeerID,
                  didChange state: MCSessionState) {
         connectedPeer = session.connectedPeers.first
+        
+        if state == .connected {
+            startViewFinderStream(to: session.connectedPeers.first!)
+        } else {
+            stopViewFinderStream()
+        }
     }
     
     func session(_ session: MCSession,
@@ -179,5 +220,9 @@ extension StreamerVM: MCNearbyServiceAdvertiserDelegate {
                     invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         invitationHandler(true, peerSession)
     }
+    
+}
+
+extension StreamerVM: StreamDelegate {
     
 }

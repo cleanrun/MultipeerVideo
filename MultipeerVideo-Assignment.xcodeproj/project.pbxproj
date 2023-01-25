@@ -143,6 +143,7 @@
 				TargetAttributes = {
 					AB3C0AB5297809D100154FA7 = {
 						CreatedOnToolsVersion = 14.1;
+						LastSwiftMigration = 1410;
 					};
 				};
 			};
@@ -325,11 +326,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6J2XDDYT2W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MultipeerVideo-Assignment/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = MVA;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs your camera permission to record video and send it to the host.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app needs your permission to use local network.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs your microphone permission to record video and send it to the host.";
@@ -349,6 +352,8 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -359,11 +364,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6J2XDDYT2W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MultipeerVideo-Assignment/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = MVA;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs your camera permission to record video and send it to the host.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app needs your permission to use local network.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs your microphone permission to record video and send it to the host.";
@@ -383,6 +390,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
