@@ -1,0 +1,388 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AB4B02EB2997D1EF00767BA4 /* HostVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B02EA2997D1EF00767BA4 /* HostVM.swift */; };
+		AB4B02F22997E16200767BA4 /* VideoPlayerWC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B02F02997E16200767BA4 /* VideoPlayerWC.swift */; };
+		AB4B02F32997E16200767BA4 /* VideoPlayerWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB4B02F12997E16200767BA4 /* VideoPlayerWC.xib */; };
+		ABC82F132997CCBB0023A41D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC82F122997CCBB0023A41D /* AppDelegate.swift */; };
+		ABC82F152997CCBB0023A41D /* HostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC82F142997CCBB0023A41D /* HostVC.swift */; };
+		ABC82F172997CCBB0023A41D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABC82F162997CCBB0023A41D /* Assets.xcassets */; };
+		ABC82F1A2997CCBB0023A41D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABC82F182997CCBB0023A41D /* Main.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AB4B02EA2997D1EF00767BA4 /* HostVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostVM.swift; sourceTree = "<group>"; };
+		AB4B02EC2997D25300767BA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AB4B02F02997E16200767BA4 /* VideoPlayerWC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerWC.swift; sourceTree = "<group>"; };
+		AB4B02F12997E16200767BA4 /* VideoPlayerWC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlayerWC.xib; sourceTree = "<group>"; };
+		ABC82F0F2997CCBB0023A41D /* MultipeerVideo-Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MultipeerVideo-Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABC82F122997CCBB0023A41D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ABC82F142997CCBB0023A41D /* HostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostVC.swift; sourceTree = "<group>"; };
+		ABC82F162997CCBB0023A41D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ABC82F192997CCBB0023A41D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		ABC82F1B2997CCBB0023A41D /* MultipeerVideo_Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MultipeerVideo_Mac.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ABC82F0C2997CCBB0023A41D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AB4B02ED2997E0AE00767BA4 /* Host */ = {
+			isa = PBXGroup;
+			children = (
+				ABC82F142997CCBB0023A41D /* HostVC.swift */,
+				AB4B02EA2997D1EF00767BA4 /* HostVM.swift */,
+			);
+			path = Host;
+			sourceTree = "<group>";
+		};
+		AB4B02EE2997E0B700767BA4 /* Windows */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B02ED2997E0AE00767BA4 /* Host */,
+				AB4B02EF2997E0BE00767BA4 /* Video Player */,
+			);
+			path = Windows;
+			sourceTree = "<group>";
+		};
+		AB4B02EF2997E0BE00767BA4 /* Video Player */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B02F12997E16200767BA4 /* VideoPlayerWC.xib */,
+				AB4B02F02997E16200767BA4 /* VideoPlayerWC.swift */,
+			);
+			path = "Video Player";
+			sourceTree = "<group>";
+		};
+		ABC82F062997CCBB0023A41D = {
+			isa = PBXGroup;
+			children = (
+				ABC82F112997CCBB0023A41D /* MultipeerVideo-Mac */,
+				ABC82F102997CCBB0023A41D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ABC82F102997CCBB0023A41D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ABC82F0F2997CCBB0023A41D /* MultipeerVideo-Mac.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ABC82F112997CCBB0023A41D /* MultipeerVideo-Mac */ = {
+			isa = PBXGroup;
+			children = (
+				ABC82F122997CCBB0023A41D /* AppDelegate.swift */,
+				AB4B02EE2997E0B700767BA4 /* Windows */,
+				AB4B02EC2997D25300767BA4 /* Info.plist */,
+				ABC82F162997CCBB0023A41D /* Assets.xcassets */,
+				ABC82F182997CCBB0023A41D /* Main.storyboard */,
+				ABC82F1B2997CCBB0023A41D /* MultipeerVideo_Mac.entitlements */,
+			);
+			path = "MultipeerVideo-Mac";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ABC82F0E2997CCBB0023A41D /* MultipeerVideo-Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABC82F1E2997CCBB0023A41D /* Build configuration list for PBXNativeTarget "MultipeerVideo-Mac" */;
+			buildPhases = (
+				ABC82F0B2997CCBB0023A41D /* Sources */,
+				ABC82F0C2997CCBB0023A41D /* Frameworks */,
+				ABC82F0D2997CCBB0023A41D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MultipeerVideo-Mac";
+			productName = "MultipeerVideo-Mac";
+			productReference = ABC82F0F2997CCBB0023A41D /* MultipeerVideo-Mac.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ABC82F072997CCBB0023A41D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1410;
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					ABC82F0E2997CCBB0023A41D = {
+						CreatedOnToolsVersion = 14.1;
+					};
+				};
+			};
+			buildConfigurationList = ABC82F0A2997CCBB0023A41D /* Build configuration list for PBXProject "MultipeerVideo-Mac" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ABC82F062997CCBB0023A41D;
+			productRefGroup = ABC82F102997CCBB0023A41D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ABC82F0E2997CCBB0023A41D /* MultipeerVideo-Mac */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ABC82F0D2997CCBB0023A41D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABC82F172997CCBB0023A41D /* Assets.xcassets in Resources */,
+				ABC82F1A2997CCBB0023A41D /* Main.storyboard in Resources */,
+				AB4B02F32997E16200767BA4 /* VideoPlayerWC.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ABC82F0B2997CCBB0023A41D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB4B02F22997E16200767BA4 /* VideoPlayerWC.swift in Sources */,
+				ABC82F152997CCBB0023A41D /* HostVC.swift in Sources */,
+				AB4B02EB2997D1EF00767BA4 /* HostVM.swift in Sources */,
+				ABC82F132997CCBB0023A41D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		ABC82F182997CCBB0023A41D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ABC82F192997CCBB0023A41D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		ABC82F1C2997CCBB0023A41D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		ABC82F1D2997CCBB0023A41D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		ABC82F1F2997CCBB0023A41D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MultipeerVideo-Mac/MultipeerVideo_Mac.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6J2XDDYT2W;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MultipeerVideo-Mac/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app needs your permission to use local network.";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cleanrun.MultipeerVideo-Mac";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		ABC82F202997CCBB0023A41D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MultipeerVideo-Mac/MultipeerVideo_Mac.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6J2XDDYT2W;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MultipeerVideo-Mac/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app needs your permission to use local network.";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cleanrun.MultipeerVideo-Mac";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ABC82F0A2997CCBB0023A41D /* Build configuration list for PBXProject "MultipeerVideo-Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABC82F1C2997CCBB0023A41D /* Debug */,
+				ABC82F1D2997CCBB0023A41D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ABC82F1E2997CCBB0023A41D /* Build configuration list for PBXNativeTarget "MultipeerVideo-Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABC82F1F2997CCBB0023A41D /* Debug */,
+				ABC82F202997CCBB0023A41D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ABC82F072997CCBB0023A41D /* Project object */;
+}
