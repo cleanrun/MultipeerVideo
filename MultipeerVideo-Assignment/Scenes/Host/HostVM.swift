@@ -110,14 +110,14 @@ final class HostVM: NSObject, ObservableObject {
     }
     
     private func setPreviewVideo(from stream: InputStream) {
-        DispatchQueue.global(qos: .userInteractive).async { [unowned self] in
-            var buffer = [UInt8](repeating: 0, count: 1024)
-            let numberBytes = stream.read(&buffer, maxLength: 1024)
+        let bufferSize = 32768
+        var buffer = [UInt8](repeating: 0, count: bufferSize)
+        DispatchQueue.global(qos: .background).async { [unowned self] in
+            let numberBytes = stream.read(&buffer, maxLength: bufferSize)
             let data = Data(referencing: NSData(bytes: &buffer, length: numberBytes))
             if let imageData = UIImage(data: data) {
                 DispatchQueue.main.async {
-                    self.viewController?
-                        .previewCameraView.layer.contents = imageData.cgImage
+                    self.viewController?.previewCameraView.layer.contents = imageData.cgImage
                 }
             }
         }

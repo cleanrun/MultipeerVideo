@@ -158,11 +158,11 @@ final class StreamerVM: NSObject, ObservableObject {
         viewFinderStream = nil
     }
     
-    func writeViewFinderStream(using data: Data) {
-        let nsdata = NSData(data: data)
-        let bytesWritten = data.withUnsafeBytes({
+    @objc func writeViewFinderStream(using data: Data) {
+        data.withUnsafeBytes({
+            guard let pointer = $0.baseAddress?.assumingMemoryBound(to: UInt8.self) else { return }
             viewFinderStream?
-                .write($0.bindMemory(to: UInt8.self).baseAddress!, maxLength: data.count)
+                .write(pointer, maxLength: data.count)
         })
     }
 }
@@ -173,11 +173,13 @@ extension StreamerVM: MCSessionDelegate {
                  didChange state: MCSessionState) {
         connectedPeer = session.connectedPeers.first
         
+        /*
         if state == .connected {
             startViewFinderStream(to: session.connectedPeers.first!)
         } else {
             stopViewFinderStream()
         }
+        */
     }
     
     func session(_ session: MCSession,

@@ -86,6 +86,7 @@ final class StreamerVC: UIViewController {
     
     private func setupPreviewLayer() {
         captureSession = AVCaptureSession()
+        //captureSession.sessionPreset = .hd1280x720
         
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video),
               let audioCaptureDevice = AVCaptureDevice.default(for: .audio) else { return }
@@ -107,17 +108,17 @@ final class StreamerVC: UIViewController {
             return
         }
         
-        //movieOutput = AVCaptureMovieFileOutput()
-        videoDataOutput = AVCaptureVideoDataOutput()
+        movieOutput = AVCaptureMovieFileOutput()
+        //videoDataOutput = AVCaptureVideoDataOutput()
+
+        if captureSession.canAddOutput(movieOutput) {
+            captureSession.addOutput(movieOutput)
+            movieFileOutputConnection = movieOutput.connection(with: .video)
+        } else {
+            return
+        }
         
-//        if captureSession.canAddOutput(movieOutput) {
-//            captureSession.addOutput(movieOutput)
-//            movieFileOutputConnection = movieOutput.connection(with: .video)
-//        } else {
-//            return
-//        }
-        
-        setupDataOutput()
+        //setupDataOutput()
         
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.videoGravity = .resizeAspectFill
@@ -127,6 +128,20 @@ final class StreamerVC: UIViewController {
         }
         
         previewLayerView.layer.cornerRadius = 10
+        
+        if let frameSupportRange = videoCaptureDevice.activeFormat.videoSupportedFrameRateRanges.first {
+            captureSession.beginConfiguration()
+            do {
+                try videoCaptureDevice.lockForConfiguration()
+                videoCaptureDevice.activeVideoMinFrameDuration = CMTime(value: 1, timescale: Int32(24))
+                videoCaptureDevice.activeVideoMaxFrameDuration = CMTime(value: 1, timescale: Int32(24))
+                videoCaptureDevice.unlockForConfiguration()
+            } catch {
+                print("Could not lock for configuration")
+            }
+        }
+        
+        captureSession.commitConfiguration()
     }
     
     private func setupDataOutput() {
@@ -135,12 +150,12 @@ final class StreamerVC: UIViewController {
         ]
         
         if captureSession.canAddOutput(videoDataOutput) {
-            captureSession.addOutput(videoDataOutput)
+            DispatchQueue.main.async { [unowned self] in
+                self.captureSession.addOutput(videoDataOutput)
+            }
             videoDataOutput.setSampleBufferDelegate(self, queue: captureQueue)
-            videoDataOutput.alwaysDiscardsLateVideoFrames = true
+            videoDataOutput.alwaysDiscardsLateVideoFrames = false
         }
-        
-        captureSession.commitConfiguration()
     }
     
     func setVideoOrientation(_ orientation: AVCaptureVideoOrientation) {
@@ -179,7 +194,7 @@ extension StreamerVC: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput,
                        didOutput sampleBuffer: CMSampleBuffer,
                        from connection: AVCaptureConnection) {
-        DispatchQueue.global(qos: .utility).async { [unowned self] in
+        DispatchQueue.global(qos: .background).async { [unowned self] in
             let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
             
             if let imageBuffer {
@@ -200,12 +215,12 @@ extension StreamerVC: AVCaptureVideoDataOutputSampleBufferDelegate {
                 
                 if let newImage = newContext?.makeImage() {
                     let image = UIImage(cgImage: newImage,
-                                        scale: 1,
+                                        scale: 0.2,
                                         orientation: .up)
                     
                     CVPixelBufferUnlockBaseAddress(imageBuffer, [])
                     
-                    if let data = image.jpegData(compressionQuality: 0.5) {
+                    if let data = image.jpegData(compressionQuality: 0.2) {
                         //self.viewModel.sendVideoStreamImage(using: data)
                         self.viewModel.writeViewFinderStream(using: data)
                     }
