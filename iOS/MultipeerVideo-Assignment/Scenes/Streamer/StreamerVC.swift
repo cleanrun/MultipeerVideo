@@ -26,6 +26,8 @@ final class StreamerVC: UIViewController {
     private var viewModel: StreamerVM!
     private var disposables = Set<AnyCancellable>()
     
+    private var encoder: H264Encoder?
+    
     init() {
         super.init(nibName: "StreamerVC", bundle: nil)
         viewModel = StreamerVM(viewController: self)
@@ -38,6 +40,7 @@ final class StreamerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
+        setupEncoder()
         setupPreviewLayer()
     }
     
@@ -86,7 +89,7 @@ final class StreamerVC: UIViewController {
     
     private func setupPreviewLayer() {
         captureSession = AVCaptureSession()
-        //captureSession.sessionPreset = .hd1280x720
+        captureSession.sessionPreset = .hd1280x720
         
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video),
               let audioCaptureDevice = AVCaptureDevice.default(for: .audio) else { return }
@@ -108,17 +111,17 @@ final class StreamerVC: UIViewController {
             return
         }
         
-        movieOutput = AVCaptureMovieFileOutput()
-        //videoDataOutput = AVCaptureVideoDataOutput()
+        //movieOutput = AVCaptureMovieFileOutput()
+        videoDataOutput = AVCaptureVideoDataOutput()
 
-        if captureSession.canAddOutput(movieOutput) {
-            captureSession.addOutput(movieOutput)
-            movieFileOutputConnection = movieOutput.connection(with: .video)
-        } else {
-            return
-        }
+//        if captureSession.canAddOutput(movieOutput) {
+//            captureSession.addOutput(movieOutput)
+//            movieFileOutputConnection = movieOutput.connection(with: .video)
+//        } else {
+//            return
+//        }
         
-        //setupDataOutput()
+        setupDataOutput()
         
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.videoGravity = .resizeAspectFill
@@ -162,6 +165,14 @@ final class StreamerVC: UIViewController {
         movieFileOutputConnection?.videoOrientation = orientation
     }
     
+    private func setupEncoder() {
+        encoder = H264Encoder(width: 1280, height: 720, fps: 15, callback: { encodedBuffer in
+            print("Buffer received: \(encodedBuffer)")
+        })
+        encoder?.delegate = self
+        encoder?.prepareToEncodeFrames()
+    }
+    
     private func recordHandler(_ state: RecordingState) {
         if state == .isRecording {
             try? FileManager.default.removeItem(at: viewModel.fileUrl)
@@ -194,6 +205,7 @@ extension StreamerVC: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput,
                        didOutput sampleBuffer: CMSampleBuffer,
                        from connection: AVCaptureConnection) {
+        /*
         DispatchQueue.global(qos: .background).async { [unowned self] in
             let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
             
@@ -227,5 +239,24 @@ extension StreamerVC: AVCaptureVideoDataOutputSampleBufferDelegate {
                 }
             }
         }
+         */
+        encoder?.encodeBySampleBuffer(sampleBuffer)
     }
+}
+
+extension StreamerVC: H264EncoderDelegate {
+    func didReceiveData(_ data: Data, frameType: FrameType) {
+        let byteHeader: [UInt8] = [0, 0, 0, 1]
+        var byteHeaderData = Data(byteHeader)
+        byteHeaderData.append(data)
+    }
+    
+    func didReceiveSpsppsData(_ sps: Data, pps: Data) {
+        let sbyteHeader: [UInt8] = [0, 0, 0, 1]
+        var sbyteHeaderData = Data(sbyteHeader)
+        var pbyteHeaderData = Data(sbyteHeader)
+        sbyteHeaderData.append(sps)
+        pbyteHeaderData.append(pps)
+    }
+    
 }

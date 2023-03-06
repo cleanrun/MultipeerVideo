@@ -17,6 +17,7 @@
 		AB3C0ADC29780A2C00154FA7 /* StreamerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3C0AD629780A2C00154FA7 /* StreamerVM.swift */; };
 		AB3C0ADD29780A2C00154FA7 /* StreamerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB3C0AD729780A2C00154FA7 /* StreamerVC.xib */; };
 		AB3C0ADE29780A2C00154FA7 /* StreamerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3C0AD829780A2C00154FA7 /* StreamerVC.swift */; };
+		AB9C690129B3AABD000E1797 /* H264Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9C690029B3AABD000E1797 /* H264Encoder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		AB3C0AD629780A2C00154FA7 /* StreamerVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamerVM.swift; sourceTree = "<group>"; };
 		AB3C0AD729780A2C00154FA7 /* StreamerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamerVC.xib; sourceTree = "<group>"; };
 		AB3C0AD829780A2C00154FA7 /* StreamerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamerVC.swift; sourceTree = "<group>"; };
+		AB9C690029B3AABD000E1797 /* H264Encoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H264Encoder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				AB3C0AD629780A2C00154FA7 /* StreamerVM.swift */,
 				AB3C0AD729780A2C00154FA7 /* StreamerVC.xib */,
 				AB3C0AD829780A2C00154FA7 /* StreamerVC.swift */,
+				AB9C690029B3AABD000E1797 /* H264Encoder.swift */,
 			);
 			path = Streamer;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				AB3C0ADB29780A2C00154FA7 /* HostVM.swift in Sources */,
 				AB3C0ADC29780A2C00154FA7 /* StreamerVM.swift in Sources */,
 				AB3C0ABA297809D100154FA7 /* AppDelegate.swift in Sources */,
+				AB9C690129B3AABD000E1797 /* H264Encoder.swift in Sources */,
 				AB3C0ABC297809D100154FA7 /* SceneDelegate.swift in Sources */,
 				AB3C0ADA29780A2C00154FA7 /* HostVC.swift in Sources */,
 				AB3C0ADE29780A2C00154FA7 /* StreamerVC.swift in Sources */,
