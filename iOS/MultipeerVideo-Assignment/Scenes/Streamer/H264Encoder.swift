@@ -21,7 +21,7 @@ protocol H264EncoderDelegate: AnyObject {
 }
 
 final class H264Encoder {
-    var delegate: H264EncoderDelegate?
+    weak var delegate: H264EncoderDelegate?
     
     private var session: VTCompressionSession?
     private let callback: (CMSampleBuffer) -> Void
@@ -43,7 +43,7 @@ final class H264Encoder {
             return
         }
         
-        let encoder: H264Encoder = Unmanaged<H264Encoder>.fromOpaque(refCon).takeRetainedValue()
+        let encoder: H264Encoder = Unmanaged<H264Encoder>.fromOpaque(refCon).takeUnretainedValue()
         if encoder.shouldUnpack {
             var isKeyFrame: Bool = false
             
@@ -157,7 +157,14 @@ final class H264Encoder {
         
         let nsData = NSMutableData(data: data)
         CMBlockBufferCreateEmpty(allocator: nil, capacity: 0, flags: kCMBlockBufferAlwaysCopyDataFlag, blockBufferOut: copiedDataBuffer)
-        CMBlockBufferAppendMemoryBlock(copiedDataBuffer.pointee!, memoryBlock: nsData.mutableBytes, length: length, blockAllocator: nil, customBlockSource: nil, offsetToData: 0, dataLength: length, flags: kCMBlockBufferAlwaysCopyDataFlag)
+        CMBlockBufferAppendMemoryBlock(copiedDataBuffer.pointee!,
+                                       memoryBlock: nsData.mutableBytes,
+                                       length: length,
+                                       blockAllocator: nil,
+                                       customBlockSource: nil,
+                                       offsetToData: 0,
+                                       dataLength: length,
+                                       flags: kCMBlockBufferAlwaysCopyDataFlag)
         
         let (timingInfo, timingInfoCount) = H264Encoder.getTimingArray(from: sampleBuffer)
         let (sizeArray, sizeArrayCount) = H264Encoder.getSizeArray(from: sampleBuffer)
@@ -165,7 +172,7 @@ final class H264Encoder {
         
         let retainedDataBuffer = Unmanaged.passRetained(copiedDataBuffer.pointee!)
         CMSampleBufferCreate(allocator: kCFAllocatorDefault,
-                             dataBuffer: retainedDataBuffer.takeUnretainedValue(),
+                             dataBuffer: retainedDataBuffer.takeRetainedValue(),
                              dataReady: true,
                              makeDataReadyCallback: nil,
                              refcon: nil,
